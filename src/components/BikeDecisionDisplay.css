@@ -1,0 +1,47 @@
+.decision-card {
+  background: white;
+  border: 3px solid;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.status-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.decision-card h2 {
+  margin: 0.5rem 0;
+}
+
+.reason {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 1rem 0;
+}
+
+.forecast-details {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.forecast-details h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.forecast-details p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.preferences-used {
+  margin-top: 1rem;
+  color: #888;
+}
