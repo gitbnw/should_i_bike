@@ -16,11 +16,15 @@
     "restart:all": "concurrently --kill-others-on-fail --raw \"npm run dev\" \"cd ../api_one && npm run start:dev\" --names \"frontend,backend\" --prefix-colors \"cyan,magenta\""
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.143.6",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@tanstack/router-devtools": "^1.143.6",
+    "@tanstack/router-vite-plugin": "^1.143.6",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",

@@ -13,6 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  /* Force scrollbar to always be visible to prevent layout shift */
+  overflow-y: scroll;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

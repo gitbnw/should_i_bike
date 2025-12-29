@@ -1,0 +1,66 @@
+.location-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+  color: #333;
+}
+
+.location-form h2 {
+  margin-top: 0;
+  color: #213547;
+}
+
+.form-description {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.location-form .form-field {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.location-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.location-form .field-hint {
+  font-weight: 400;
+  color: #999;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+.location-form input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.location-form input:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.location-form button {
+  width: 100%;
+  margin: 0;
+}

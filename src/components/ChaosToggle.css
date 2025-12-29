@@ -1,0 +1,136 @@
+.chaos-toggle-container {
+  background-color: #1e1e1e;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  max-width: 600px;
+}
+
+.chaos-toggle-header h3 {
+  margin: 0 0 10px 0;
+  color: #4CAF50;
+  font-size: 1.3em;
+}
+
+.chaos-description {
+  margin: 0 0 20px 0;
+  color: #b0b0b0;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.chaos-toggle-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+/* Custom toggle switch */
+.chaos-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.chaos-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.chaos-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #555;
+  transition: 0.3s;
+  border-radius: 34px;
+}
+
+.chaos-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .chaos-slider {
+  background-color: #4CAF50;
+}
+
+input:focus + .chaos-slider {
+  box-shadow: 0 0 1px #4CAF50;
+}
+
+input:checked + .chaos-slider:before {
+  transform: translateX(26px);
+}
+
+input:disabled + .chaos-slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Status indicator */
+.chaos-status {
+  flex: 1;
+}
+
+.status-indicator {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+
+.status-indicator.active {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+  border: 1px solid #f44336;
+}
+
+.status-indicator.inactive {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+/* Warning message */
+.chaos-warning {
+  background-color: rgba(255, 152, 0, 0.1);
+  border: 1px solid #ff9800;
+  border-radius: 4px;
+  padding: 12px;
+  color: #ffb74d;
+  font-size: 0.85em;
+  line-height: 1.5;
+  margin-top: 15px;
+}
+
+.chaos-warning strong {
+  color: #ff9800;
+}
+
+/* Error message */
+.chaos-error {
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid #f44336;
+  border-radius: 4px;
+  padding: 12px;
+  color: #ef5350;
+  font-size: 0.85em;
+  margin-top: 10px;
+}

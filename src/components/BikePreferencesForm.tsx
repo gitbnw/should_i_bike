@@ -1,4 +1,12 @@
+import { useState, useEffect } from 'react';
 import { type BikePreferencesRequest, DEFAULT_BIKE_PREFERENCES } from '../types/biking.types';
+import { savePreferences, clearPreferences, hasSavedPreferences } from '../services/preferencesStorage';
+import coldIcon from '../assets/cold.gif';
+import hotIcon from '../assets/hot.gif';
+import windIcon from '../assets/wind.gif';
+import sunIcon from '../assets/sun.gif';
+import airPollutionIcon from '../assets/air-pollution.gif';
+import rainIcon from '../assets/rain.gif';
 import './BikePreferencesForm.css';
 
 type BikePreferencesFormProps = {
@@ -7,12 +15,30 @@ type BikePreferencesFormProps = {
 };
 
 export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFormProps) {
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    setIsSaved(hasSavedPreferences());
+  }, []);
+
   const handleChange = (field: keyof BikePreferencesRequest, value: number | boolean) => {
     onChange({ ...preferences, [field]: value });
+    setIsSaved(false); // Mark as unsaved when preferences change
   };
 
   const resetToDefaults = () => {
     onChange(DEFAULT_BIKE_PREFERENCES);
+    setIsSaved(false);
+  };
+
+  const handleSavePreferences = () => {
+    savePreferences(preferences);
+    setIsSaved(true);
+  };
+
+  const handleClearSaved = () => {
+    clearPreferences();
+    setIsSaved(false);
   };
 
   return (
@@ -22,7 +48,8 @@ export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFo
       <div className="form-grid">
         <div className="form-field">
           <label htmlFor="minTemp">
-            🥶 Min Temperature (°F)
+            <img src={coldIcon} alt="Cold" className="field-icon" />
+            Min Temperature (°F)
             <span className="field-hint">Coldest you'll ride in</span>
           </label>
           <input
@@ -37,7 +64,8 @@ export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFo
 
         <div className="form-field">
           <label htmlFor="maxTemp">
-            🥵 Max Temperature (°F)
+            <img src={hotIcon} alt="Hot" className="field-icon" />
+            Max Temperature (°F)
             <span className="field-hint">Hottest you'll ride in</span>
           </label>
           <input
@@ -52,7 +80,8 @@ export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFo
 
         <div className="form-field">
           <label htmlFor="maxWindSpeed">
-            💨 Max Wind Speed (mph)
+            <img src={windIcon} alt="Wind" className="field-icon" />
+            Max Wind Speed (mph)
             <span className="field-hint">Windiest you'll ride in</span>
           </label>
           <input
@@ -67,7 +96,8 @@ export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFo
 
         <div className="form-field">
           <label htmlFor="maxUvIndex">
-            ☀️ Max UV Index
+            <img src={sunIcon} alt="Sun" className="field-icon" />
+            Max UV Index
             <span className="field-hint">0-11+ (8 = very high)</span>
           </label>
           <input
@@ -83,7 +113,8 @@ export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFo
 
         <div className="form-field">
           <label htmlFor="maxAqi">
-            🌫️ Max Air Quality Index
+            <img src={airPollutionIcon} alt="Air Quality" className="field-icon" />
+            Max Air Quality Index
             <span className="field-hint">0-500 (100 = moderate)</span>
           </label>
           <input
@@ -104,18 +135,40 @@ export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFo
               checked={preferences.okWithPrecipitation}
               onChange={(e) => handleChange('okWithPrecipitation', e.target.checked)}
             />
-            🌧️ I'll bike in rain/snow
+            <img src={rainIcon} alt="Rain" className="field-icon" />
+            I'll bike in rain/snow
           </label>
         </div>
       </div>
 
-      <button 
-        type="button" 
-        className="reset-button"
-        onClick={resetToDefaults}
-      >
-        Reset to Defaults
-      </button>
+      <div className="button-group">
+        <button 
+          type="button" 
+          className="reset-button"
+          onClick={resetToDefaults}
+        >
+          Reset to Defaults
+        </button>
+
+        <button 
+          type="button" 
+          className="save-button"
+          onClick={handleSavePreferences}
+          disabled={isSaved}
+        >
+          {isSaved ? '✓ Saved' : 'Save Preferences'}
+        </button>
+
+        {isSaved && (
+          <button 
+            type="button" 
+            className="clear-button"
+            onClick={handleClearSaved}
+          >
+            Clear Saved
+          </button>
+        )}
+      </div>
     </div>
   );
 }

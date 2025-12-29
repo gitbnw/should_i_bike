@@ -1,0 +1,159 @@
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h1 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.about-section {
+  margin-bottom: 2.5rem;
+}
+
+.about-section h2 {
+  color: #646cff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.about-section h3 {
+  color: #555;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.about-section p {
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.tech-stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.stack-group {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #646cff;
+}
+
+.stack-group h3 {
+  margin-top: 0;
+  color: #646cff;
+}
+
+.stack-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stack-group li {
+  padding: 0.5rem 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.stack-group li strong {
+  color: #333;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  padding: 0.75rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #666;
+  line-height: 1.7;
+}
+
+.feature-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #646cff;
+  font-weight: bold;
+}
+
+.feature-list strong {
+  color: #333;
+}
+
+.feature-list code {
+  background: #f5f5f5;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #d63384;
+}
+
+.attribution {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #2196F3;
+}
+
+.attribution p {
+  margin: 0;
+}
+
+.attribution a {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.attribution a:hover {
+  text-decoration: underline;
+}
+
+.about-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e0e0e0;
+  text-align: center;
+}
+
+.about-footer p {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 1rem;
+  }
+
+  .tech-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .about-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.3rem;
+  }
+}

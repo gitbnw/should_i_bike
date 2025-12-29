@@ -1,10 +1,25 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BikePreferencesForm } from './BikePreferencesForm';
 import { DEFAULT_BIKE_PREFERENCES } from '../types/biking.types';
+import * as preferencesStorage from '../services/preferencesStorage';
+
+// Mock the preferences storage module
+vi.mock('../services/preferencesStorage', () => ({
+  savePreferences: vi.fn(),
+  loadPreferences: vi.fn(),
+  clearPreferences: vi.fn(),
+  hasSavedPreferences: vi.fn(),
+}));
 
 describe('BikePreferencesForm', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    // Default to no saved preferences
+    vi.mocked(preferencesStorage.hasSavedPreferences).mockReturnValue(false);
+  });
+
   it('renders all form fields with labels', () => {
     const mockOnChange = vi.fn();
     render(
@@ -235,5 +250,209 @@ describe('BikePreferencesForm', () => {
     const aqiInput = screen.getByLabelText(/Max Air Quality Index/i);
     expect(aqiInput).toHaveAttribute('min', '0');
     expect(aqiInput).toHaveAttribute('max', '500');
+  });
+
+  describe('Preference Storage', () => {
+    it('renders save preferences button', () => {
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      expect(screen.getByRole('button', { name: /Save Preferences/i })).toBeInTheDocument();
+    });
+
+    it('calls savePreferences when save button is clicked', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+
+      expect(preferencesStorage.savePreferences).toHaveBeenCalledWith(DEFAULT_BIKE_PREFERENCES);
+    });
+
+    it('shows "✓ Saved" text when preferences are saved', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+
+      expect(screen.getByRole('button', { name: /✓ Saved/i })).toBeInTheDocument();
+    });
+
+    it('disables save button when preferences are already saved', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+
+      expect(screen.getByRole('button', { name: /✓ Saved/i })).toBeDisabled();
+    });
+
+    it('shows clear button after saving preferences', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+
+      expect(screen.getByRole('button', { name: /Clear Saved/i })).toBeInTheDocument();
+    });
+
+    it('calls clearPreferences when clear button is clicked', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      // First save preferences
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+
+      // Then clear them
+      const clearButton = screen.getByRole('button', { name: /Clear Saved/i });
+      await user.click(clearButton);
+
+      expect(preferencesStorage.clearPreferences).toHaveBeenCalled();
+    });
+
+    it('hides clear button after clearing preferences', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      // Save preferences
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+
+      // Clear preferences
+      const clearButton = screen.getByRole('button', { name: /Clear Saved/i });
+      await user.click(clearButton);
+
+      // Clear button should no longer be visible
+      expect(screen.queryByRole('button', { name: /Clear Saved/i })).not.toBeInTheDocument();
+    });
+
+    it('resets saved state when preferences are changed', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      // Save preferences
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+      expect(screen.getByRole('button', { name: /✓ Saved/i })).toBeInTheDocument();
+
+      // Change a preference
+      const minTempInput = screen.getByLabelText(/Min Temperature/i);
+      fireEvent.change(minTempInput, { target: { value: '50' } });
+
+      // Should show "Save Preferences" again (not saved state)
+      expect(screen.getByRole('button', { name: /Save Preferences/i })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /✓ Saved/i })).not.toBeInTheDocument();
+    });
+
+    it('resets saved state when reset to defaults is clicked', async () => {
+      const user = userEvent.setup();
+      const mockOnChange = vi.fn();
+      const customPreferences = {
+        minTemp: 60,
+        maxTemp: 90,
+        maxWindSpeed: 15,
+        okWithPrecipitation: true,
+        maxUvIndex: 10,
+        maxAqi: 150,
+      };
+
+      render(
+        <BikePreferencesForm 
+          preferences={customPreferences} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      // Save preferences
+      const saveButton = screen.getByRole('button', { name: /Save Preferences/i });
+      await user.click(saveButton);
+
+      // Reset to defaults
+      const resetButton = screen.getByRole('button', { name: /Reset to Defaults/i });
+      await user.click(resetButton);
+
+      // Should no longer show saved state
+      expect(screen.getByRole('button', { name: /Save Preferences/i })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /✓ Saved/i })).not.toBeInTheDocument();
+    });
+
+    it('loads saved state on mount when preferences exist', () => {
+      vi.mocked(preferencesStorage.hasSavedPreferences).mockReturnValue(true);
+      const mockOnChange = vi.fn();
+      
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      expect(screen.getByRole('button', { name: /✓ Saved/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Clear Saved/i })).toBeInTheDocument();
+    });
+
+    it('does not show clear button when no preferences are saved', () => {
+      const mockOnChange = vi.fn();
+      render(
+        <BikePreferencesForm 
+          preferences={DEFAULT_BIKE_PREFERENCES} 
+          onChange={mockOnChange} 
+        />
+      );
+
+      expect(screen.queryByRole('button', { name: /Clear Saved/i })).not.toBeInTheDocument();
+    });
   });
 });
