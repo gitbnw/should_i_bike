@@ -13,7 +13,8 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "dev:all": "concurrently --raw \"npm run dev\" \"cd ../api_one && npm run start:dev\" --names \"frontend,backend\" --prefix-colors \"cyan,magenta\"",
-    "restart:all": "concurrently --kill-others-on-fail --raw \"npm run dev\" \"cd ../api_one && npm run start:dev\" --names \"frontend,backend\" --prefix-colors \"cyan,magenta\""
+    "restart:all": "concurrently --kill-others-on-fail --raw \"npm run dev\" \"cd ../api_one && npm run start:dev\" --names \"frontend,backend\" --prefix-colors \"cyan,magenta\"",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.143.6",
