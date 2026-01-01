@@ -29,7 +29,8 @@ describe('locationApi', () => {
       const result = await locationApi.getLocationByZipCode(mockZipCode);
 
       expect(globalThis.fetch).toHaveBeenCalledWith(
-        'http://localhost:3000/v1/location/zip?zipCode=10001'
+        'http://localhost:3000/v1/location/zip?zipCode=10001',
+        undefined
       );
 
       expect(result).toEqual(mockResponse);
@@ -41,6 +42,8 @@ describe('locationApi', () => {
       (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
         ok: false,
         status: 404,
+        statusText: 'Not Found',
+        json: async () => ({ message: 'Zip code not found. Please verify it\'s a valid US zip code.' }),
       });
 
       await expect(
@@ -52,6 +55,8 @@ describe('locationApi', () => {
       (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
         ok: false,
         status: 400,
+        statusText: 'Bad Request',
+        json: async () => ({ message: 'Invalid zip code format. Please enter a 5-digit US zip code.' }),
       });
 
       await expect(
@@ -63,6 +68,8 @@ describe('locationApi', () => {
       (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
         ok: false,
         status: 503,
+        statusText: 'Service Unavailable',
+        json: async () => ({ message: 'Location service is temporarily unavailable. Please try again later.' }),
       });
 
       await expect(
@@ -74,6 +81,8 @@ describe('locationApi', () => {
       (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
         ok: false,
         status: 500,
+        statusText: 'Internal Server Error',
+        json: async () => ({ message: 'Failed to lookup location' }),
       });
 
       await expect(
@@ -108,7 +117,8 @@ describe('locationApi', () => {
       await locationApi.getLocationByZipCode(zipCode);
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:3000/v1/location/zip?zipCode=90210'
+        'http://localhost:3000/v1/location/zip?zipCode=90210',
+        undefined
       );
     });
 

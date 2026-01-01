@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import { ChaosStatusIndicator } from './ChaosStatusIndicator';
 import './Layout.css';
 
 interface LayoutProps {
@@ -10,12 +11,15 @@ export function Layout({ children }: LayoutProps) {
     <>
       <nav className="nav-bar">
         <div className="nav-content">
-          <Link to="/" className="nav-link" activeProps={{ className: 'active' }}>
-            Home
-          </Link>
-          <Link to="/about" className="nav-link" activeProps={{ className: 'active' }}>
-            About
-          </Link>
+          <div className="nav-links">
+            <Link to="/" className="nav-link" activeProps={{ className: 'active' }}>
+              Home
+            </Link>
+            <Link to="/about" className="nav-link" activeProps={{ className: 'active' }}>
+              About
+            </Link>
+          </div>
+          <ChaosStatusIndicator />
         </div>
       </nav>
       {children}

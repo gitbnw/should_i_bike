@@ -64,3 +64,65 @@
   width: 100%;
   margin: 0;
 }
+
+.location-actions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.location-actions button {
+  flex: 1;
+  margin: 0;
+}
+
+.location-actions button.primary {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+}
+
+.location-actions button.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+}
+
+.saved-prefs-hint {
+  margin: 0;
+  padding: 0.75rem;
+  background-color: #e8f5e9;
+  border-left: 3px solid #4caf50;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  text-align: left;
+}
+
+.save-location-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.save-location-option .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 400;
+  color: #555;
+}
+
+.save-location-option input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  cursor: pointer;
+}
+
+.saved-badge {
+  background: #4CAF50;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}

@@ -121,24 +121,6 @@ button.secondary:hover:not(:disabled) {
   color: #333;
 }
 
-.forecast-details {
-  background: #f5f5f5;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 20px 0;
-  text-align: left;
-}
-
-.forecast-details h3 {
-  margin-top: 0;
-  color: #333;
-}
-
-.forecast-details p {
-  margin: 8px 0;
-  color: #666;
-}
-
 .preferences {
   margin-top: 16px;
   padding-top: 16px;
@@ -180,4 +162,57 @@ button.secondary:hover:not(:disabled) {
 
 .read-the-docs {
   color: #888;
+}
+
+/* Quick Check Styles */
+.quick-check-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quick-check-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quick-check-card h2 {
+  margin-top: 0;
+  color: #213547;
+  font-size: 1.75rem;
+}
+
+.quick-check-card .saved-info {
+  background: #f0f4f8;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  color: #333;
+}
+
+.quick-check-description {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.quick-check-button {
+  width: 100%;
+  font-size: 1.25rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  margin-bottom: 0.5rem;
+}
+
+.quick-check-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+}
+
+.start-fresh-button {
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 0.75rem;
 }

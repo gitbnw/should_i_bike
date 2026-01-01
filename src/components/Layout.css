@@ -7,11 +7,17 @@
 }
 
 .nav-content {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
   display: flex;
   gap: 2rem;
-  justify-content: center;
 }
 
 .nav-link {

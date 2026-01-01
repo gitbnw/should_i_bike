@@ -9,7 +9,7 @@ import { bikeApi } from '../services/biking';
 export function useBikeDecision() {
   const { location, preferences, setDecision, setLoading, setError, setStep } = useFormStore();
 
-  const fetchDecision = async (overrideLat?: number | null, overrideLon?: number | null) => {
+  const fetchDecision = async (overrideLat?: number | null, overrideLon?: number | null, onSuccess?: () => void) => {
     const lat = overrideLat ?? location.lat;
     const lon = overrideLon ?? location.lon;
 
@@ -41,6 +41,11 @@ export function useBikeDecision() {
       setDecision(result);
       setLoading(false);
       setStep('results');
+      
+      // Call onSuccess callback if provided (for scrolling)
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch bike conditions');
       setLoading(false);

@@ -1,4 +1,5 @@
 import { type BikeDecisionResponse, type BikePreferencesRequest } from '../types/biking.types';
+import { bikeApiFetch } from './bikeApi';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
@@ -11,7 +12,7 @@ export const bikeApi = {
     lon: number,
     preferences: BikePreferencesRequest,
   ): Promise<BikeDecisionResponse> {
-    const response = await fetch(
+    return bikeApiFetch<BikeDecisionResponse>(
       `${API_BASE_URL}/v1/weather/bike/should-i-ride-tomorrow?lat=${lat}&lon=${lon}`,
       {
         method: 'POST',
@@ -21,11 +22,5 @@ export const bikeApi = {
         body: JSON.stringify(preferences),
       }
     );
-
-    if (!response.ok) {
-      throw new Error(`API error: ${response.statusText}`);
-    }
-
-    return response.json();
   },
 };

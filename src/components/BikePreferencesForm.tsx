@@ -43,7 +43,7 @@ export function BikePreferencesForm({ preferences, onChange }: BikePreferencesFo
 
   return (
     <div className="preferences-form">
-      <h3>🎯 Your Biking Preferences</h3>
+      <h3>Your Biking Preferences</h3>
       
       <div className="form-grid">
         <div className="form-field">
