@@ -54,7 +54,7 @@ export function ChaosStatusIndicator() {
       aria-label={`Chaos Mode is ${isEnabled ? 'enabled' : 'disabled'}. Click to view chaos control.`}
     >
       <span className={`chaos-dot ${isEnabled ? 'enabled' : 'disabled'}`} />
-      <span className="chaos-label">Chaos</span>
+      <span className="chaos-label">Chaos: {isEnabled ? 'ON' : 'OFF'}</span>
     </button>
   );
 }

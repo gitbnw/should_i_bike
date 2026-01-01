@@ -30,7 +30,10 @@ describe('locationApi', () => {
 
       expect(globalThis.fetch).toHaveBeenCalledWith(
         'http://localhost:3000/v1/location/zip?zipCode=10001',
-        undefined
+        expect.objectContaining({
+          headers: expect.any(Headers),
+          signal: expect.any(AbortSignal),
+        })
       );
 
       expect(result).toEqual(mockResponse);
@@ -118,7 +121,10 @@ describe('locationApi', () => {
 
       expect(fetch).toHaveBeenCalledWith(
         'http://localhost:3000/v1/location/zip?zipCode=90210',
-        undefined
+        expect.objectContaining({
+          headers: expect.any(Headers),
+          signal: expect.any(AbortSignal),
+        })
       );
     });
 

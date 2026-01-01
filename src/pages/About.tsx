@@ -36,6 +36,7 @@ export function About() {
               <ul>
                 <li><strong>NestJS</strong> - Node.js framework</li>
                 <li><strong>OpenWeatherMap API</strong> - Weather data and geocoding</li>
+                <li><strong>Google Air Quality API</strong></li>
                 <li><strong>Jest</strong> - Backend testing</li>
               </ul>
             </div>

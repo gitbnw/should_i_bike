@@ -24,23 +24,19 @@ export function LocationForm() {
   // Initialize with actual value from localStorage to avoid first-render issues
   const [hasSavedPrefs, setHasSavedPrefs] = useState(() => {
     const initialValue = hasSavedPreferences();
-    console.log('[LocationForm] Initial hasSavedPrefs state:', initialValue);
     return initialValue;
   });
 
   // Check if we have a saved location on mount and reset validated state
   useEffect(() => {
-    console.log('[LocationForm] useEffect running - component mounted/remounted');
     
     // Re-check for saved preferences (in case they changed)
     const currentPrefs = hasSavedPreferences();
-    console.log('[LocationForm] useEffect - setting hasSavedPrefs to:', currentPrefs);
     setHasSavedPrefs(currentPrefs);
     
     // Load saved location from localStorage (highest priority)
     const savedLocation = loadLocation();
     if (savedLocation) {
-      console.log('[LocationForm] Found saved location:', savedLocation);
       setZipCode(savedLocation.zipCode);
       setLocationIsSaved(true);
       setShouldSaveLocation(true);
@@ -80,7 +76,6 @@ export function LocationForm() {
       });
     } else {
       // No location anywhere - clean slate
-      console.log('[LocationForm] No saved location or store data, starting fresh');
       setValidatedLocation(null);
       setZipCode(''); // Ensure zip is empty
     }

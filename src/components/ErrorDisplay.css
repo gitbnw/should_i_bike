@@ -81,11 +81,17 @@
   gap: 0.25rem;
 }
 
-.details-toggle:hover {
+.details-toggle:hover:not(:disabled) {
   text-decoration: underline;
-  background: transparent;
+  background: transparent !important;
+  border-color: transparent !important;
   color: #856404;
   transform: none;
+}
+
+.details-toggle:focus,
+.details-toggle:focus-visible {
+  outline: none;
 }
 
 .details-content {

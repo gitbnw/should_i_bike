@@ -48,13 +48,12 @@ describe('bikeApi', () => {
 
       expect(fetch).toHaveBeenCalledWith(
         `http://localhost:3000/v1/weather/bike/should-i-ride-tomorrow?lat=${mockLat}&lon=${mockLon}`,
-        {
+        expect.objectContaining({
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify(mockPreferences),
-        }
+          headers: expect.any(Headers),
+          signal: expect.any(AbortSignal),
+        })
       );
 
       expect(result).toEqual(mockResponse);

@@ -58,39 +58,32 @@ export const useFormStore = create<FormState>((set, get) => ({
   error: null,
 
   setStep: (step) => {
-    console.log('[FormStore] setStep:', step);
     set({ currentStep: step });
   },
 
   setLocation: (locationUpdate) => {
-    console.log('[FormStore] setLocation:', locationUpdate);
     set((state) => ({
       location: { ...state.location, ...locationUpdate },
     }));
   },
 
   setPreferences: (preferences) => {
-    console.log('[FormStore] setPreferences:', preferences);
     set({ preferences });
   },
 
   setDecision: (decision) => {
-    console.log('[FormStore] setDecision:', decision);
     set({ decision });
   },
 
   setLoading: (loading) => {
-    console.log('[FormStore] setLoading:', loading);
     set({ loading });
   },
 
   setError: (error) => {
-    console.log('[FormStore] setError:', error);
     set({ error });
   },
 
   resetForm: () => {
-    console.log('[FormStore] resetForm');
     set({
       currentStep: 'location',
       location: initialLocation,
@@ -103,7 +96,6 @@ export const useFormStore = create<FormState>((set, get) => ({
 
   nextStep: () => {
     const currentIndex = stepOrder.indexOf(get().currentStep);
-    console.log('[FormStore] nextStep - current:', get().currentStep, 'index:', currentIndex);
     if (currentIndex < stepOrder.length - 1) {
       set({ currentStep: stepOrder[currentIndex + 1] });
     }
@@ -111,7 +103,6 @@ export const useFormStore = create<FormState>((set, get) => ({
 
   previousStep: () => {
     const currentIndex = stepOrder.indexOf(get().currentStep);
-    console.log('[FormStore] previousStep - current:', get().currentStep, 'index:', currentIndex);
     if (currentIndex > 0) {
       set({ 
         currentStep: stepOrder[currentIndex - 1],

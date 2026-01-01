@@ -82,7 +82,11 @@ describe('bikeApi utilities', () => {
 
       const result = await bikeApiFetch(mockUrl);
 
-      expect(globalThis.fetch).toHaveBeenCalledWith(mockUrl, undefined);
+      // Verify fetch was called with URL and options (headers + signal added by bikeApiFetch)
+      expect(globalThis.fetch).toHaveBeenCalledWith(mockUrl, expect.objectContaining({
+        headers: expect.any(Headers),
+        signal: expect.any(AbortSignal),
+      }));
       expect(result).toEqual(mockData);
     });
 
@@ -101,7 +105,13 @@ describe('bikeApi utilities', () => {
 
       await bikeApiFetch(mockUrl, fetchOptions);
 
-      expect(globalThis.fetch).toHaveBeenCalledWith(mockUrl, fetchOptions);
+      // Verify original options are passed through with added headers/signal
+      expect(globalThis.fetch).toHaveBeenCalledWith(mockUrl, expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify({ test: 'data' }),
+        headers: expect.any(Headers),
+        signal: expect.any(AbortSignal),
+      }));
     });
 
     it('should throw error with parsed message when response is not ok', async () => {

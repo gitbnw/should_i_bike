@@ -164,6 +164,16 @@ export function FormWizard() {
     );
   }
 
+  // Show error screen exclusively (no form)
+  if (error) {
+    return (
+      <ErrorDisplay 
+        error={error}
+        onRetry={handleFetchDecision}
+      />
+    );
+  }
+
   return (
     <>
       {/* Step 1: Location */}
@@ -190,14 +200,6 @@ export function FormWizard() {
             </button>
           </div>
         </div>
-      )}
-
-      {/* Error Display */}
-      {error && (
-        <ErrorDisplay 
-          error={error}
-          onRetry={handleFetchDecision}
-        />
       )}
 
       {/* Results Display */}
