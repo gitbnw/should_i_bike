@@ -60,7 +60,7 @@ export function About() {
             <li>
               <strong>Health Check Endpoint</strong> for monitoring service status
             </li>
-            <li><strong>Public facing production deployment using [Vercel](https://vercel.com/) and [Render](https://render.com/)</strong></li>
+            <li><strong>Automated production deployment using [Vercel](https://vercel.com/) and [Render](https://render.com/)</strong></li>
           </ul>
         </section>
 
