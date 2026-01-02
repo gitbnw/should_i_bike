@@ -23,7 +23,6 @@ export function About() {
               <h3>Frontend</h3>
               <ul>
                 <li><strong>React 19</strong></li>
-                <li><strong>TypeScript</strong></li>
                 <li><strong>Vite</strong></li>
                 <li><strong>Zustand</strong></li>
                 <li><strong>TanStack Router</strong></li>
@@ -47,17 +46,21 @@ export function About() {
           <h2>Key Features</h2>
           <ul className="feature-list">
             <li>
-              <strong>Multi-step Form Flow</strong>
-            </li>
-            <li>
-              <strong>Zip Code Geocoding</strong>
-            </li>
-            <li>
-              <strong>Personalized Recommendations</strong>
+              <strong>Multi-step Form Flow with state handling</strong>
             </li>
             <li>
               <strong>Local Preference Storage</strong>
             </li>
+            <li>
+              <strong>Build pipeline through CI/CD using GitHub Actions</strong>
+            </li>
+            <li>
+              <strong>API Documentation</strong> with Swagger integration
+            </li>
+            <li>
+              <strong>Health Check Endpoint</strong> for monitoring service status
+            </li>
+            <li><strong>Public facing production deployment using [Vercel](https://vercel.com/) and [Render](https://render.com/)</strong></li>
           </ul>
         </section>
 
@@ -74,7 +77,7 @@ export function About() {
               <strong>Loading States</strong> - Animated indicators with minimum display times for UX
             </li>
             <li>
-              <strong>Type Safety</strong> - Shared TypeScript types between frontend and backend
+              <strong>Type Safety</strong> - Shared types between frontend and backend
             </li>
             <li>
               <strong>Test Coverage</strong> - Unit tests for services, component tests for UI
@@ -94,7 +97,7 @@ export function About() {
           <p>RESTful endpoints with clear resource naming:</p>
           <ul className="feature-list">
             <li><code>GET /v1/location/zip?zipCode=10001</code> - Geocoding service</li>
-            <li><code>POST /v1/weather/should-i-bike</code> - Decision engine with preferences payload</li>
+            <li><code>POST /v1/weather/should-i-bike</code> - Decision results with preferences payload</li>
             <li><code>GET /v1/chaos/status</code> - Check if chaos mode is enabled</li>
             <li><code>PUT /v1/chaos/toggle</code> - Toggle chaos mode for error simulation</li>
           </ul>
