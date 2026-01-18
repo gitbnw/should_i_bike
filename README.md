@@ -1,73 +1,143 @@
-# React + TypeScript + Vite
+# Should I Bike Tomorrow? - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript frontend for the "Should I Bike Tomorrow?" weather-based cycling decision app. Built with Vite, TanStack Router, and Zustand for state management.
 
-Currently, two official plugins are available:
+## What Does This App Do?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Enter your zip code and weather preferences to get a personalized recommendation on whether you should bike tomorrow based on the forecast.
 
-## React Compiler
+### Features
+- **Location Input** - Enter zip code to get local forecast
+- **Preferences** - Set your ideal/tolerable temperature, wind, and rain thresholds
+- **Decision Display** - Visual recommendation with clear reasoning
+- **Chaos Mode** - Toggle backend error simulation to see resilience patterns
+- **Preference Storage** - Saves your settings locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Quick Start
 
-## Expanding the ESLint configuration
+### Prerequisites
+- Node.js 20+
+- pnpm (`npm install -g pnpm`)
+- Backend running (see [api_one README](../api_one/README.md))
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
+```bash
+# Install dependencies
+pnpm install
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Create .env from example
+cp .env.example .env
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Update .env with your backend URL
+# VITE_API_BASE_URL=http://localhost:3000
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
+```bash
+# Start dev server
+pnpm dev
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Run tests
+pnpm test
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Run tests in watch mode
+pnpm test
+
+# Run tests with UI
+pnpm test:ui
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
+
+# Run both frontend and backend
+pnpm dev:all
 ```
+
+App runs at `http://localhost:5173`
+
+## Project Structure
+
+```
+src/
+  components/       # React components
+    BikeDecisionDisplay.tsx   # Shows recommendation
+    BikePreferencesForm.tsx   # User preferences
+    LocationForm.tsx          # Zip code input
+    ChaosToggle.tsx          # Backend error simulation
+    ErrorDisplay.tsx         # Error states
+    LoadingIndicator.tsx     # Loading states
+  services/         # API clients and business logic
+    bikeApi.ts      # Backend HTTP client
+    location.ts     # Location service
+    biking.ts       # Bike decision logic
+  hooks/            # Custom React hooks
+    useBikeDecision.ts  # Main decision hook
+  store/            # Zustand state management
+    formStore.ts    # Form wizard state
+  types/            # TypeScript definitions
+  routes/           # TanStack Router pages
+```
+
+## Tech Stack
+
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **TanStack Router** - Type-safe routing
+- **Zustand** - State management
+- **Vitest** - Testing framework
+- **Testing Library** - Component testing
+
+## Configuration
+
+See [`.env.example`](.env.example):
+- `VITE_API_BASE_URL` - Backend API URL (required)
+- `VITE_ENABLE_DEVTOOLS` - Show TanStack DevTools (dev only)
+
+## Deployment
+
+See [**api_one/docs/DEPLOYMENT.md**](../api_one/docs/DEPLOYMENT.md) for complete hosting setup.
+
+**Quick deploy to Vercel:**
+```bash
+npm install -g vercel
+vercel --prod
+```
+
+Remember to set `VITE_API_BASE_URL` in Vercel environment variables!
+
+## Testing
+
+- **Unit tests** - Services and utilities
+- **Component tests** - React Testing Library
+- **User interaction tests** - User-event simulations
+
+```bash
+pnpm test          # Run all tests
+pnpm test:coverage # Generate coverage report
+pnpm test:ui       # Interactive test UI
+```
+
+## Portfolio Highlights
+
+### User Experience Patterns
+- **Form Wizard** - Multi-step form with progress tracking
+- **Optimistic UI** - Immediate feedback before API responds
+- **Error Boundaries** - Graceful degradation on failures
+- **Loading States** - Clear feedback during async operations
+- **Preference Persistence** - localStorage for user settings
+
+### Code Quality
+- TypeScript strict mode
+- Component testing with Testing Library
+- ESLint + Prettier
+- Modular service architecture
+
+## Related Projects
+
+- **Backend API**: [api_one](../api_one) - NestJS backend with weather integration
+
+
