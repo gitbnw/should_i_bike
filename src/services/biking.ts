@@ -1,7 +1,6 @@
 import { type BikeDecisionResponse, type BikePreferencesRequest } from '../types/biking.types';
 import { bikeApiFetch } from './bikeApi';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+import { buildApiUrl } from './apiBaseUrl';
 
 export const bikeApi = {
   /**
@@ -13,7 +12,7 @@ export const bikeApi = {
     preferences: BikePreferencesRequest,
   ): Promise<BikeDecisionResponse> {
     return bikeApiFetch<BikeDecisionResponse>(
-      `${API_BASE_URL}/v1/weather/bike/should-i-ride-tomorrow?lat=${lat}&lon=${lon}`,
+      buildApiUrl(`/v1/weather/bike/should-i-ride-tomorrow?lat=${lat}&lon=${lon}`),
       {
         method: 'POST',
         headers: {

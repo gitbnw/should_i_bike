@@ -1,6 +1,5 @@
 import { bikeApiFetch } from './bikeApi';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+import { buildApiUrl } from './apiBaseUrl';
 
 export interface LocationResponse {
   zipCode: string;
@@ -16,7 +15,7 @@ export const locationApi = {
    */
   async getLocationByZipCode(zipCode: string): Promise<LocationResponse> {
     return bikeApiFetch<LocationResponse>(
-      `${API_BASE_URL}/v1/location/zip?zipCode=${zipCode}`
+      buildApiUrl(`/v1/location/zip?zipCode=${zipCode}`)
     );
   },
 };

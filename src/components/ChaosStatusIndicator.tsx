@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { buildApiUrl } from '../services/apiBaseUrl';
 import './ChaosStatusIndicator.css';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
 export function ChaosStatusIndicator() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -12,7 +11,7 @@ export function ChaosStatusIndicator() {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/v1/chaos/status`);
+        const response = await fetch(buildApiUrl('/v1/chaos/status'));
         const data = await response.json();
         setIsEnabled(data.enabled);
       } catch (error) {

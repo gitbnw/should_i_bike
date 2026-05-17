@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { buildApiUrl } from '../services/apiBaseUrl';
 import './ChaosToggle.css';
 
 /**
@@ -16,8 +17,6 @@ export default function ChaosToggle() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
-
   // Fetch initial chaos mode status on mount
   useEffect(() => {
     fetchChaosStatus();
@@ -27,7 +26,7 @@ export default function ChaosToggle() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`${API_BASE_URL}/v1/chaos/status`);
+      const response = await fetch(buildApiUrl('/v1/chaos/status'));
       
       if (!response.ok) {
         throw new Error(`Failed to fetch chaos status: ${response.statusText}`);
@@ -48,7 +47,7 @@ export default function ChaosToggle() {
       setLoading(true);
       setError(null);
       
-      const response = await fetch(`${API_BASE_URL}/v1/chaos/toggle`, {
+      const response = await fetch(buildApiUrl('/v1/chaos/toggle'), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
